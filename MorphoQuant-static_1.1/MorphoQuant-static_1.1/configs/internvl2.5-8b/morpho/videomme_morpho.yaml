@@ -1,0 +1,30 @@
+model:
+  model_path: /private/wy/pretrained_models/InternVL2_5-8B
+  model_type: internvl2_5
+  quant_method: morpho
+  apply_hooks: false
+  save_attention_maps: false
+  save_per_head_attention: false
+quant:
+  simulate_hif8: false
+  activation_bitwidth: 4
+  keep_special_layer: false
+  debug_quant_act: false
+  gamma_inf: 0.5
+  gamma_cos: 1.0
+  sparse_buffer_ratio: 1.5
+  calib_size: 128
+  search_size: 16
+  batch_size: 2
+data:
+  only_samples_with_images: false
+  num_samples: -1
+  run_pca: false
+  internvl_max_num_tiles: 1
+  internvl_calib_max_num_tiles: 1
+  internvl_calib_max_images: 1
+  internvl_eval_max_images: 1
+  internvl_eval_max_num_tiles: 1
+run:
+  save_dir: /private/wy/logs/MorphoQuant/videomme_internvl25_results
+  seed: 2025

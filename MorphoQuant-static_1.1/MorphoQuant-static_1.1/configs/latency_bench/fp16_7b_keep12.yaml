@@ -1,0 +1,26 @@
+# Qwen2.5-Omni-7B BF16 with uniformly retained 12/28 text layers.
+model:
+  model_path: /private/wy/pretrained_models/Qwen2.5-Omni-7B
+  model_type: qwen2_5_omni
+  quant_method: bf16
+
+quant:
+  activation_bitwidth: 16
+  calib_size: 0
+
+data:
+  num_samples: 1
+
+run:
+  save_dir: /private/wy/logs/latency_bench
+  seed: 2025
+
+benchmark:
+  enabled: true
+  fused_kernel: false
+  warmup: 3
+  decode_tokens: 32
+  input_lengths: [128, 512, 2048]
+  num_trials: 3
+  keep_text_layers: 12
+  output_path: /private/wy/logs/latency_bench/fp16_7b_keep12.json

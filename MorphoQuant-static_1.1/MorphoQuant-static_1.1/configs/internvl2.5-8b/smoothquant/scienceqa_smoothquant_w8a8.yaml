@@ -1,0 +1,31 @@
+model:
+  model_path: /private/wy/pretrained_models/InternVL2_5-8B
+  model_type: internvl2_5
+  quant_method: bf16
+  apply_hooks: false
+  save_attention_maps: false
+  save_per_head_attention: false
+quant:
+  simulate_hif8: false
+  simulate_hif4: false
+  simulate_smoothquant: true
+  smoothquant_weight_bits: 8
+  smoothquant_act_bits: 8
+  smoothquant_alpha: 0.5
+  activation_bitwidth: 16
+  keep_special_layer: false
+  debug_quant_act: false
+  calib_size: 64
+  batch_size: 1
+data:
+  only_samples_with_images: false
+  num_samples: -1
+  run_pca: false
+  internvl_max_num_tiles: 8
+  internvl_calib_max_num_tiles: 6
+  internvl_calib_max_images: 2
+  internvl_eval_max_num_tiles: 6
+  internvl_eval_max_images: 2
+run:
+  save_dir: /private/wy/logs/MorphoQuant/scienceqa_internvl25_smoothquant_results
+  seed: 2025

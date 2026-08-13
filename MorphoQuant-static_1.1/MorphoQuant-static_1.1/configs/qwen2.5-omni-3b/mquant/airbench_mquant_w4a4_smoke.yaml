@@ -1,0 +1,35 @@
+model:
+  model_path: /private/wy/pretrained_models/Qwen2.5-Omni-3B
+  quant_method: bf16
+  apply_hooks: false
+  save_attention_maps: false
+  save_per_head_attention: false
+quant:
+  simulate_hif8: false
+  simulate_hif4: false
+  simulate_smoothquant: false
+  simulate_mquant: true
+  mquant_weight_bits: 4
+  mquant_act_bits: 4
+  activation_bitwidth: 4
+  keep_special_layer: false
+  debug_quant_act: false
+  gamma_inf: 0.5
+  gamma_cos: 1.0
+  lp_norm: 3.0
+  use_cosine_loss: false
+  sparse_buffer_ratio: 1.5
+  search_ratio_lower_bound: 0.6
+  calib_size: 8
+  search_size: 4
+  batch_size: 1
+  outlier_std_threshold: 2.0
+data:
+  only_samples_with_images: false
+  num_samples: 1
+  data_root: /private/wy/datasets/air-bench/Foundation
+  output_file: /private/wy/logs/MorphoQuant/smoke_results/airbench_qwen3b_mquant_w4a4/Foundation_result.jsonl
+  run_pca: false
+run:
+  save_dir: /private/wy/logs/MorphoQuant/smoke_results/airbench_qwen3b_mquant_w4a4
+  seed: 2025

@@ -1,0 +1,32 @@
+# Ablation: Group 4 — Sparse Compensation + L3.0 Loss + Cosine Similarity
+# Dataset: MMMU, Model: Qwen2.5-Omni-3B
+model:
+  model_path: /private/wy/pretrained_models/Qwen2.5-Omni-3B
+  quant_method: morpho
+  apply_hooks: false
+  save_attention_maps: false
+  save_per_head_attention: false
+quant:
+  simulate_hif8: false
+  activation_bitwidth: 4
+  keep_special_layer: false
+  debug_quant_act: false
+  gamma_inf: 0.5
+  gamma_cos: 0.75
+  lp_norm: 3.0
+  use_cosine_loss: true
+  sparse_buffer_ratio: 1.5
+  search_ratio_lower_bound: 0.6
+  calib_size: 64
+  search_size: 16
+  batch_size: 4
+  outlier_std_threshold: 2.0
+data:
+  only_samples_with_images: false
+  num_samples: -1
+  target_subject: all
+  dataset_dir: /private/wy/datasets
+  run_pca: false
+run:
+  save_dir: /private/wy/logs/MorphoQuant/ablation/sparse_l3_cosine/mmmu_results
+  seed: 2025

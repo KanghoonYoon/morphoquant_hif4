@@ -1,0 +1,23 @@
+model:
+  model_path: /private/wy/pretrained_models/Qwen2.5-Omni-7B
+  quant_method: morpho
+  apply_hooks: false
+  save_attention_maps: false
+  save_per_head_attention: false
+quant:
+  simulate_hif8: false
+  activation_bitwidth: 4
+  keep_special_layer: false
+  debug_quant_act: false
+  gamma_inf: 0.5
+  gamma_cos: 1.0
+  lp_norm: 2.0
+  use_cosine_loss: false
+  calib_size: 128
+  batch_size: 8
+data:
+  only_samples_with_images: false
+  num_samples: -1
+run:
+  save_dir: /private/wy/pretrained_models/qwen2.5-omni-7b-4bit-calibrated
+  seed: 2025

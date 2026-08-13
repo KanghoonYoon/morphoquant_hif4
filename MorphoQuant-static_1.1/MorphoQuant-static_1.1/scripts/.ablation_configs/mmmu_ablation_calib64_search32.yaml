@@ -1,0 +1,37 @@
+data:
+  dataset_dir: /private/wy/datasets
+  internvl_calib_max_images: 2
+  internvl_calib_max_num_tiles: 6
+  internvl_eval_max_images: 2
+  internvl_eval_max_num_tiles: 6
+  internvl_max_num_tiles: 8
+  num_samples: -1
+  only_samples_with_images: false
+  run_pca: false
+  target_subject: all
+model:
+  apply_hooks: false
+  model_path: /private/wy/pretrained_models/InternVL2_5-8B
+  model_type: internvl2_5
+  quant_method: morpho_withhif4
+  save_attention_maps: false
+  save_per_head_attention: false
+quant:
+  activation_bitwidth: 4
+  batch_size: 2
+  calib_size: 64
+  debug_quant_act: false
+  gamma_cos: 0.75
+  gamma_inf: 0.5
+  keep_special_layer: false
+  lp_norm: 3.0
+  outlier_std_threshold: 2.0
+  search_ratio_lower_bound: 0.6
+  search_size: 32
+  simulate_hif4: true
+  simulate_hif8: false
+  sparse_buffer_ratio: 1.5
+  use_cosine_loss: false
+run:
+  save_dir: /private/wy/logs/MorphoQuant/ablation_calib_search/calib64_search32
+  seed: 2025

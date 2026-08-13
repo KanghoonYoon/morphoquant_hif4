@@ -1,0 +1,35 @@
+model:
+  model_path: /private/wy/pretrained_models/InternVL2_5-8B
+  model_type: internvl2_5
+  quant_method: freeact
+  apply_hooks: false
+  save_attention_maps: false
+  save_per_head_attention: false
+quant:
+  simulate_hif8: false
+  simulate_hif4: false
+  simulate_smoothquant: false
+  simulate_freeact: true
+  freeact_weight_bits: 4
+  freeact_act_bits: 4
+  freeact_r1_ratio: 0.03125   # d/32
+  freeact_r2_ratio: 0.03125   # d/32
+  freeact_calib_epochs: 20
+  freeact_calib_lr: 0.0001
+  freeact_rotate_v_o: true
+  freeact_seed: 2025
+  activation_bitwidth: 16
+  keep_special_layer: false
+  debug_quant_act: false
+  calib_size: 256
+  batch_size: 1
+data:
+  only_samples_with_images: false
+  num_samples: -1
+  run_pca: false
+  internvl_max_num_tiles: 8
+  internvl_eval_max_num_tiles: 6
+  internvl_eval_max_images: 2
+run:
+  save_dir: /private/wy/logs/MorphoQuant/scienceqa_internvl25_freeact_w4a4_results
+  seed: 2025

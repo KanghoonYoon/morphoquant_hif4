@@ -1,0 +1,45 @@
+model:
+  model_path: /private/wy/pretrained_models/InternVL2_5-8B
+  model_type: internvl2_5
+  quant_method: bf16
+  apply_hooks: false
+  save_attention_maps: false
+  save_per_head_attention: false
+quant:
+  simulate_hif8: false
+  simulate_hif4: false
+  simulate_smoothquant: false
+  simulate_awq: false
+  simulate_mbq: true
+  mbq_weight_bits: 4
+  mbq_act_bits: 4
+  mbq_group_size: 128
+  mbq_n_grid: 20
+  mbq_modalities: [text, multimodal]
+  activation_bitwidth: 16
+  keep_special_layer: false
+  debug_quant_act: false
+  gamma_inf: 0.5
+  gamma_cos: 1.0
+  lp_norm: 2.0
+  use_cosine_loss: false
+  sparse_buffer_ratio: 1.5
+  search_ratio_lower_bound: 0.6
+  calib_size: 64
+  search_size: 16
+  batch_size: 2
+  outlier_std_threshold: 2.0
+data:
+  only_samples_with_images: false
+  num_samples: -1
+  target_subject: all
+  dataset_dir: /private/wy/datasets
+  run_pca: false
+  internvl_max_num_tiles: 8
+  internvl_calib_max_num_tiles: 6
+  internvl_calib_max_images: 2
+  internvl_eval_max_images: 2
+  internvl_eval_max_num_tiles: 6
+run:
+  save_dir: /private/wy/logs/MorphoQuant/mmmu_internvl25_mbq_w4a4_results
+  seed: 2025

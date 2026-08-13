@@ -1,0 +1,22 @@
+model:
+  model_path: /private/wy/pretrained_models/Qwen2.5-Omni-7B
+  quant_method: bf16
+  apply_hooks: false
+  save_attention_maps: false
+  save_per_head_attention: false
+quant:
+  simulate_hif8: false
+  simulate_hif4: false
+  simulate_smoothquant: false
+  activation_bitwidth: 16
+  keep_special_layer: false
+  debug_quant_act: false
+  calib_size: 64
+  batch_size: 1
+data:
+  num_samples: -1
+  target_subject: all
+  dataset_dir: /private/wy/datasets
+run:
+  save_dir: /private/wy/logs/MorphoQuant/mmmu_results
+  seed: 2025

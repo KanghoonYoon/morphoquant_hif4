@@ -1,0 +1,33 @@
+# MorphoQuant Fused CUDA Kernel — fused act quant+dequant in a single CUDA kernel
+model:
+  model_path: /private/wy/pretrained_models/Qwen2.5-Omni-7B
+  model_type: qwen2_5_omni
+  quant_method: morpho
+
+quant:
+  activation_bitwidth: 4
+  gamma_inf: 0.5
+  gamma_cos: 0.75
+  calib_size: 128
+  search_size: 16
+  batch_size: 4
+  lp_norm: 3.0
+  sparse_buffer_ratio: 0.8
+  outlier_std_threshold: 2.0
+
+data:
+  num_samples: 1
+
+run:
+  save_dir: /private/wy/logs/latency_bench
+  seed: 2025
+
+benchmark:
+  enabled: true
+  fused_kernel: true
+  use_cuda_kernel: true
+  warmup: 3
+  decode_tokens: 32
+  input_lengths: [128, 512, 2048]
+  num_trials: 3
+  output_path: /private/wy/logs/latency_bench/morpho_cuda_results.json
