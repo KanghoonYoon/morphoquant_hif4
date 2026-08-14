@@ -760,7 +760,7 @@ class ScienceQAEvaluator(BaseEvaluator):
             base_dir=self.base_dir,
             problems_path=self.problems_path,
             split_path=self.split_path,
-            split="validation",
+            split="val",
             only_samples_with_images=self.config.data.only_samples_with_images,
             max_samples=self.config.quant.calib_size
         )
@@ -907,7 +907,7 @@ class ScienceQAEvaluator(BaseEvaluator):
                 base_dir=self.base_dir,
                 problems_path=self.problems_path,
                 split_path=self.split_path,
-                split="validation",
+                split="val",
                 only_samples_with_images=self.config.data.only_samples_with_images,
                 max_samples=self.config.quant.search_size,
                 skip_samples=self.config.quant.calib_size  # 跳过前面用于校准的样本，保证数据隔离
