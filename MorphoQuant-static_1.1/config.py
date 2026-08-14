@@ -18,6 +18,10 @@ class QuantConfig:
     simulate_hif4: bool = False
     # 4-bit 浮点格式选择 (HiF4 路径): hifx4 (默认) | nvfp4
     fp4_qtype: str = "hifx4"
+    # 量化范围控制：全名包含任一子串的 Linear 不做量化。
+    # 空 = 除 lm_head 外全部量化（含 visual / audio_tower / talker / token2wav）。
+    # 例: ["thinker.visual", "thinker.audio_tower", "talker", "token2wav"] 只量化 LLM。
+    skip_module_substrings: List[str] = field(default_factory=list)
     simulate_smoothquant: bool = False
     smoothquant_weight_bits: int = 8
     smoothquant_act_bits: Optional[int] = 8  # None 表示不量化激活 (WxA16)
