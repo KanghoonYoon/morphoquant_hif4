@@ -434,6 +434,9 @@ class BaseEvaluator:
                 _normalize_conversation_for_template(text_only_conv, self.processor),
                 add_generation_prompt=True, tokenize=False
             )
+            if isinstance(text_only_str, (list, tuple)):  # transformers 4.5x 返回 List[str]
+                assert len(text_only_str) == 1, f"apply_chat_template returned {len(text_only_str)} prompts, expected 1"
+                text_only_str = text_only_str[0]
             text_inputs = self.processor(
                 text=text_only_str, return_tensors="pt", padding=True
             )
@@ -622,6 +625,9 @@ class ScienceQAEvaluator(BaseEvaluator):
 
     def _inference(self, conversation):
         text = self.processor.apply_chat_template(_normalize_conversation_for_template(conversation, self.processor), add_generation_prompt=True, tokenize=False)
+        if isinstance(text, (list, tuple)):  # transformers 4.5x 返回 List[str]
+            assert len(text) == 1, f"apply_chat_template returned {len(text)} prompts, expected 1"
+            text = text[0]
         audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
         inputs = self.processor(
             text=text, audio=audios, images=images, videos=videos,
@@ -812,6 +818,9 @@ class ScienceQAEvaluator(BaseEvaluator):
                             msg["content"] = [c for c in msg["content"] if c.get("type") != "video"]
                 
                 text = self.processor.apply_chat_template(_normalize_conversation_for_template(conversation, self.processor), add_generation_prompt=True, tokenize=False)
+                if isinstance(text, (list, tuple)):  # transformers 4.5x 返回 List[str]
+                    assert len(text) == 1, f"apply_chat_template returned {len(text)} prompts, expected 1"
+                    text = text[0]
                 audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
                 
                 batch_texts.append(text)
@@ -935,6 +944,9 @@ class ScienceQAEvaluator(BaseEvaluator):
 
                     conv_for_template = _normalize_conversation_for_template(conversation, self.processor)
                     text = self.processor.apply_chat_template(conv_for_template, add_generation_prompt=True, tokenize=False)
+                    if isinstance(text, (list, tuple)):  # transformers 4.5x 返回 List[str]
+                        assert len(text) == 1, f"apply_chat_template returned {len(text)} prompts, expected 1"
+                        text = text[0]
                     audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
 
                     batch_texts.append(text)
@@ -1149,6 +1161,9 @@ class MMMUEvaluator(BaseEvaluator):
 
     def _inference(self, conversation):
         text = self.processor.apply_chat_template(_normalize_conversation_for_template(conversation, self.processor), add_generation_prompt=True, tokenize=False)
+        if isinstance(text, (list, tuple)):  # transformers 4.5x 返回 List[str]
+            assert len(text) == 1, f"apply_chat_template returned {len(text)} prompts, expected 1"
+            text = text[0]
         audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
 
         inputs = self.processor(
@@ -1655,6 +1670,9 @@ class MMMUEvaluator(BaseEvaluator):
                         msg["content"] = [c for c in msg["content"] if c.get("type") != "video"]
             
             text = self.processor.apply_chat_template(_normalize_conversation_for_template(conversation, self.processor), add_generation_prompt=True, tokenize=False)
+            if isinstance(text, (list, tuple)):  # transformers 4.5x 返回 List[str]
+                assert len(text) == 1, f"apply_chat_template returned {len(text)} prompts, expected 1"
+                text = text[0]
             audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
 
             batch_texts.append(text)
@@ -2378,6 +2396,9 @@ class VideoMMEEvaluator(BaseEvaluator):
 
     def _inference(self, conversation):
         text = self.processor.apply_chat_template(_normalize_conversation_for_template(conversation, self.processor), add_generation_prompt=True, tokenize=False)
+        if isinstance(text, (list, tuple)):  # transformers 4.5x 返回 List[str]
+            assert len(text) == 1, f"apply_chat_template returned {len(text)} prompts, expected 1"
+            text = text[0]
         audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
 
         inputs = self.processor(
@@ -2560,6 +2581,9 @@ class VideoMMEEvaluator(BaseEvaluator):
                             msg["content"] = [c for c in msg["content"] if c.get("type") != "video"]
                 
                 text = self.processor.apply_chat_template(_normalize_conversation_for_template(conversation, self.processor), add_generation_prompt=True, tokenize=False)
+                if isinstance(text, (list, tuple)):  # transformers 4.5x 返回 List[str]
+                    assert len(text) == 1, f"apply_chat_template returned {len(text)} prompts, expected 1"
+                    text = text[0]
                 audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
                 
                 batch_texts.append(text)
@@ -2728,6 +2752,9 @@ class VideoMMEEvaluator(BaseEvaluator):
                             msg["content"] = [c for c in msg["content"] if c.get("type") != "video"]
 
                 text = self.processor.apply_chat_template(_normalize_conversation_for_template(conversation, self.processor), add_generation_prompt=True, tokenize=False)
+                if isinstance(text, (list, tuple)):  # transformers 4.5x 返回 List[str]
+                    assert len(text) == 1, f"apply_chat_template returned {len(text)} prompts, expected 1"
+                    text = text[0]
                 audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
                 
                 batch_texts.append(text)
@@ -2907,6 +2934,9 @@ class AirBenchEvaluator(BaseEvaluator):
             add_generation_prompt=True,
             tokenize=False,
         )
+        if isinstance(text, (list, tuple)):  # transformers 4.5x 返回 List[str]
+            assert len(text) == 1, f"apply_chat_template returned {len(text)} prompts, expected 1"
+            text = text[0]
         audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
         inputs = self.processor(
             text=text,
@@ -3054,6 +3084,9 @@ class AirBenchEvaluator(BaseEvaluator):
             #                 msg["content"] = [c for c in msg["content"] if c.get("type") != "video"]
 
             text = self.processor.apply_chat_template(_normalize_conversation_for_template(conversation, self.processor), add_generation_prompt=True, tokenize=False)
+            if isinstance(text, (list, tuple)):  # transformers 4.5x 返回 List[str]
+                assert len(text) == 1, f"apply_chat_template returned {len(text)} prompts, expected 1"
+                text = text[0]
             audios, images, videos = process_mm_info(conversation, use_audio_in_video=False)
             
             # if calib_without_audio:
