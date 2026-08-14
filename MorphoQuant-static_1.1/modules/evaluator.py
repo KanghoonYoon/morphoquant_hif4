@@ -1075,6 +1075,12 @@ class ScienceQAEvaluator(BaseEvaluator):
                 # Periodic flush for crash-safety without excessive syscalls
                 if total % 10 == 0:
                     f.flush()
+                # 每 100 个样本报告一次running accuracy（tqdm.write 以免打断进度条）
+                if total % 100 == 0:
+                    tqdm.write(
+                        f"  [{total}/{len(dataset)}] running accuracy: "
+                        f"{correct / total:.4f} ({correct}/{total})"
+                    )
         finally:
             f.close()
 
@@ -2880,6 +2886,12 @@ class VideoMMEEvaluator(BaseEvaluator):
                 # Periodic flush for crash-safety
                 if total % 10 == 0:
                     f.flush()
+                # 每 100 个样本报告一次running accuracy（tqdm.write 以免打断进度条）
+                if total % 100 == 0:
+                    tqdm.write(
+                        f"  [{total}/{len(dataset)}] running accuracy: "
+                        f"{correct / total:.4f} ({correct}/{total})"
+                    )
         finally:
             f.close()
 
